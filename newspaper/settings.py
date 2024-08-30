@@ -140,10 +140,7 @@ DATABASES = {
     )
 }
 
-if 'DATABASE_URL' in os.environ:
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-    DEBUG = True
-
+DATABASES["default"] = dj_database_url.parse("postgresql://santosdatabase_user:jsNLJhGfeSRn6nsARHIuz7tcViwxICdt@dpg-cr8u1vij1k6c73f98qv0-a.oregon-postgres.render.com/santosdatabase")
 
 
 
