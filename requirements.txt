@@ -42,3 +42,4 @@ uvicorn==0.30.0
 whitenoise==6.6.0
 cloudinary==1.41.0
 cloudpathlib==0.18.1
+django-cloudinary-storage==0.3.0
