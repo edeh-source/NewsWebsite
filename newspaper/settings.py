@@ -216,19 +216,20 @@ if not DEBUG:
 
 
 
-MEDIA_URL = 'media/'
+
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ['CLOUD_NAME'],
-    'API_KEY': os.environ['CLOUD_API_KEY'],
-    'API_SECRET': os.environ['CLOUD_API_SECRET'],
+    'CLOUD_NAME': 'dxmarjmnr',
+    'API_KEY': '691581191232549',
+    'API_SECRET': 'hUJDoEDzg3pmQpmQEE4hZHtiFgM',
     
 }
 
-if os.environ["ENVIRONMENT"] == "PRODUCTION":
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MEDIA_URL = 'media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
