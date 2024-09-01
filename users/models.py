@@ -58,15 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def name(self):
         return self.first_name and self.last_name
     
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if self.image:
-            image_size = (100, 100)
-            image = Image.open(self.image.path)
-            image.resize(image_size)
-            image.save(self.image.path)
-        else:
-            return None    
+
 
 
     objects = UserManager()

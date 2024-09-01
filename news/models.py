@@ -20,6 +20,7 @@ from django.conf import settings
 
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length=256, db_index=True)
     slug = models.SlugField(max_length=256)
@@ -62,7 +63,7 @@ class Post(models.Model):
     active = models.BooleanField(default=False)
     author = models.ForeignKey(Author, on_delete=models.PROTECT, related_name='posts')
     publish = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to='posts_images')
+    image = models.ImageField(upload_to='posts_images/')
     text = RichTextField()
     views = views = models.PositiveIntegerField(default=0)
     tags = TaggableManager()
@@ -95,13 +96,7 @@ class Post(models.Model):
 
     
 
-    def save(self, *args, **kwargs):       
-        super().save(*args, **kwargs) 
-        img = cv2.imread(self.image.path)
-        height, width = 630, 900
-        dim = (width, height)
-        resized_img = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
-        cv2.imwrite(self.image.path, resized_img)
+    
         
 
     

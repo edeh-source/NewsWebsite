@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from django.conf import settings
 
 load_dotenv()
 from django.contrib.messages import constants as messages
@@ -29,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'news.apps.NewsConfig',
     'users.apps.UsersConfig',
     'django_social_share',
@@ -141,11 +144,12 @@ DATABASES = {
     )
 }
 
-DATABASES["default"] = dj_database_url.parse("postgresql://santosdatabase_user:jsNLJhGfeSRn6nsARHIuz7tcViwxICdt@dpg-cr8u1vij1k6c73f98qv0-a.oregon-postgres.render.com/santosdatabase")
+#DATABASES["default"] = dj_database_url.parse("postgresql://santosdatabase_user:jsNLJhGfeSRn6nsARHIuz7tcViwxICdt@dpg-cr8u1vij1k6c73f98qv0-a.oregon-postgres.render.com/santosdatabase")
 
 
 
-    
+
+
 
 
 # Password validation
@@ -212,8 +216,22 @@ if not DEBUG:
 
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ['CLOUD_NAME'],
+    'API_KEY': os.environ['CLOUD_API_KEY'],
+    'API_SECRET': os.environ['CLOUD_API_SECRET'],
+    
+}
+
+if os.environ["ENVIRONMENT"] == "PRODUCTION":
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
