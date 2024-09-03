@@ -223,9 +223,9 @@ if not DEBUG:
 MEDIA_URL = 'media/'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ['CLOUD_NAME'],
-    'API_KEY': os.environ['CLOUD_API_KEY'],
-    'API_SECRET': os.environ['CLOUD_API_SECRET'],
+    'CLOUD_NAME': 'dxmarjmnr',
+    'API_KEY': '691581191232549',
+    'API_SECRET': 'hUJDoEDzg3pmQpmQEE4hZHtiFgM',
     
 }
 
