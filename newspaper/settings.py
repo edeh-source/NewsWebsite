@@ -229,10 +229,10 @@ CLOUDINARY_STORAGE = {
     
 }
 
-if os.environ.get("ENVIRONMENT") == "PRODUCTION":
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
