@@ -67,7 +67,7 @@ class Post(models.Model):
     active = models.BooleanField(default=False)
     author = models.ForeignKey(Author, on_delete=models.PROTECT, related_name='posts')
     publish = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to='posts_images/')
+    image = models.ImageField(upload_to='posts_images/', max_length=500)
     text = RichTextField()
     views = views = models.PositiveIntegerField(default=0)
     tags = TaggableManager()
