@@ -1,6 +1,10 @@
 from django.db import models
 from PIL import Image
 import uuid
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+import cv2
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from ckeditor.fields import RichTextField
@@ -58,8 +62,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     def name(self):
         return self.first_name and self.last_name
     
-
-
+    def save(self, *args, **kwargs):
+        if self.image:
+            img = Image.open(self.image)
+            output = BytesIO()
+            width, height = 100, 100
+            img = img.resize((width, height))
+            img_format = img.format  # Get the original image format
+            if not img_format:  # If format is None, default to JPEG
+                img_format = 'JPEG'
+                img.save(output, format=img_format)
+                output.seek(0)
+                self.image = ContentFile(output.getvalue(), name=self.image.name)
+        super().save(*args, **kwargs)
+           
 
     objects = UserManager()
 

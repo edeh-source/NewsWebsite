@@ -6,6 +6,10 @@ from PIL import Image
 from embed_video.fields import EmbedVideoField
 from taggit.managers import TaggableManager
 import cv2
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+from io import BytesIO
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.dispatch import receiver
@@ -96,7 +100,19 @@ class Post(models.Model):
 
     
 
-    
+    def save(self, *args, **kwargs):
+        if self.image:
+            img = Image.open(self.image)
+            output = BytesIO()
+            width, height = 900, 630
+            img = img.resize((width, height))
+            img_format = img.format  # Get the original image format
+            if not img_format:  # If format is None, default to JPEG
+                img_format = 'JPEG'
+                img.save(output, format=img_format)
+                output.seek(0)
+                self.image = ContentFile(output.getvalue(), name=self.image.name)
+        super().save(*args, **kwargs)
         
 
     
