@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from django_resized import ResizedImageField
 
 from django.utils.text import slugify
 from PIL import Image
@@ -67,7 +68,7 @@ class Post(models.Model):
     active = models.BooleanField(default=False)
     author = models.ForeignKey(Author, on_delete=models.PROTECT, related_name='posts')
     publish = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to='posts_images/', max_length=500)
+    image =  ResizedImageField(size=[900, 630], upload_to='post_images', quality=85)
     text = RichTextField()
     views = views = models.PositiveIntegerField(default=0)
     tags = TaggableManager()
@@ -100,19 +101,7 @@ class Post(models.Model):
 
     
 
-    def save(self, *args, **kwargs):
-        if self.image:
-            img = Image.open(self.image)
-            output = BytesIO()
-            width, height = 900, 630
-            img = img.resize((width, height))
-            img_format = img.format  # Get the original image format
-            if not img_format:  # If format is None, default to JPEG
-                img_format = 'JPEG'
-                img.save(output, format=img_format)
-                output.seek(0)
-                self.image = ContentFile(output.getvalue(), name=self.image.name)
-        super().save(*args, **kwargs)
+
         
 
     
