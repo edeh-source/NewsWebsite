@@ -1,13 +1,22 @@
 from django.db import models
 from users.models import User
 from django_resized import ResizedImageField
-
+from cloudinary import CloudinaryImage
+import cloudinary
+from cloudinary.utils import cloudinary_url
 from django.utils.text import slugify
+import cv2
+import tempfile
+import requests
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
+from django.core.files import File
 from PIL import Image
 from embed_video.fields import EmbedVideoField
 from taggit.managers import TaggableManager
 import cv2
 from PIL import Image
+import requests
 from io import BytesIO
 from django.core.files.base import ContentFile
 from io import BytesIO
@@ -22,6 +31,12 @@ from django.utils.text import slugify
 from django.db.models.signals import pre_save
 from django.contrib.auth import get_user_model
 from django.conf import settings
+import cloudinary
+from cloudinary import uploader
+import cv2
+import numpy as np
+from io import BytesIO
+from django.core.files.base import ContentFile
 
 
 
@@ -68,7 +83,7 @@ class Post(models.Model):
     active = models.BooleanField(default=False)
     author = models.ForeignKey(Author, on_delete=models.PROTECT, related_name='posts')
     publish = models.DateTimeField(default=timezone.now)
-    image =  ResizedImageField(size=[900, 630], upload_to='post_images', quality=85)
+    image =  ResizedImageField(size=[900, 630], crop=['middle', 'center'], quality=85, upload_to='post_images/')
     text = RichTextField()
     views = views = models.PositiveIntegerField(default=0)
     tags = TaggableManager()
@@ -94,6 +109,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+
+
     
     
     
