@@ -1,4 +1,14 @@
 {% extends 'base.html' %}
+
+{% block meta_tags %}
+    <!-- Dynamic Open Graph meta tags for the index page -->
+    <title>{{ post.name }}</title>
+    <meta property="og:title" content="{{ post.name }}"/>
+
+    
+    
+    
+{% endblock %}
 {% load static %}
 {% load embed_video_tags %}
 
