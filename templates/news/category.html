@@ -20,7 +20,7 @@
               <div>
                 <div class="post-meta"><span class="date">{{ post_list.category.name }}</span> <span class="mx-1">&bullet;</span> <span>{{ post_list.created|timesince }} Ago</span></div>
                 <h3><a href="{{ post_list.get_absolute_url }}">{{ post_list.name }}</a></h3>
-                <p>{{ post_list.text|safe|truncatewords:30 }}</p>
+                
                 <div class="d-flex align-items-center author">
                   <div class="photo"><img src="{{ post_list.author.user.image.url }}" alt="" class="img-fluid"></div>
                   <div class="name">
