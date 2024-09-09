@@ -1,14 +1,9 @@
 {% extends 'base.html' %}
 
-{% block meta_tags %}
-    <!-- Dynamic Open Graph meta tags for the index page -->
-    <title>{{ post.name }}</title>
-    <meta property="og:title" content="{{ post.name }}"/>
-
-    
-    
-    
+{% block title %}
+    {{ post.name }}
 {% endblock %}
+
 {% load static %}
 {% load embed_video_tags %}
 
@@ -16,7 +11,7 @@
 
 {% load social_share %}
 
-{% block title %}{{ post.name }}{% endblock %}
+
 
 {% block content %}
     
@@ -42,7 +37,7 @@
               </figure>
               <div class="d-flex justify-content-center my-4 mt-4 p-4">
                 <div class="share-icons">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}&title={{ post.name }}" class="text-dark me-3" title="Facebook" target="_blank">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}&title={{ post.name|urlencode }}" class="text-dark me-3" title="Facebook" target="_blank">
                         <i class="fab fa-facebook fa-lg"></i>
                     </a>
 </a>

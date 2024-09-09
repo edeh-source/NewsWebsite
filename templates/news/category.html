@@ -20,7 +20,7 @@
               <div>
                 <div class="post-meta"><span class="date">{{ post_list.category.name }}</span> <span class="mx-1">&bullet;</span> <span>{{ post_list.created|timesince }} Ago</span></div>
                 <h3><a href="{{ post_list.get_absolute_url }}">{{ post_list.name }}</a></h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat exercitationem magni voluptates dolore. Tenetur fugiat voluptates quas, nobis error deserunt aliquam temporibus sapiente, laudantium dolorum itaque libero eos deleniti?</p>
+                <p>{{ post_list.text|safe|truncatewords:30 }}</p>
                 <div class="d-flex align-items-center author">
                   <div class="photo"><img src="{{ post_list.author.user.image.url }}" alt="" class="img-fluid"></div>
                   <div class="name">
